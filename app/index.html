@@ -1,0 +1,143 @@
+
+<!doctype html>
+<html class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui">
+  <title>Coffee_Snob</title>
+  <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+
+  <!-- build:css styles/vendor.css -->
+  <!-- bower:css -->
+  <link rel="stylesheet" href="../bower_components/normalize-css/normalize.css" />
+  <!-- endbower -->
+  <!-- endbuild -->
+
+  <!-- build:css styles/main.css -->
+  <link rel="stylesheet" href="styles/main.css">
+  <!-- endbuild -->
+
+  <!-- build:js scripts/vendor/modernizr.js -->
+  <script src="../bower_components/modernizr/modernizr.js"></script>
+  <!-- endbuild -->
+</head>
+<body>
+
+  <div class="body-container">
+ <a href="#/add" class="addBtn"><button>Add</button></a> 
+    <div class="header">
+        <h1>Trips</h1>
+
+        <div class="sorts">
+          <a href="#/">Rating</a> &bull;
+          <a href="#/sort/city">City</a> &bull;
+          <a href="#/sort/country">Country</a>
+
+
+    </div><!--end of header-->
+
+
+    </div>
+    <div id="coffeeList"></div>
+    <div id="picList"></div>
+  </div><!--end of body-container-->
+
+  <script type="text/template" id="addTemp">
+    <form id="addCoffee">
+
+      <input type="text" id="trip_city" placeholder="Trip City" />
+      <input type="text" id="trip_country" placeholder="Trip Country" />
+      <input type="file" id="profilePhotoFileUpload" />
+
+
+      <button>Add Coffee</button>
+    </form>
+    <hr />
+  </script>
+
+  <script type="text/template" id="listTemp">
+    <li class="card" id="<%= objectId %>">
+      <a href="#/edit/<%= objectId %>">
+
+
+
+          <h2 class="title"><%= city %> , <%= country %></h2>
+       <img class="pic" src="  <%= picture.url %>">
+
+
+      <!-- </a>-->
+         <!---
+        <% if(rating !== '') { %>
+          <div class="card-stats"><%= rating %> Star Rating</div>
+          <% } %> -->
+
+    </script>
+
+    <script type="text/template" id="singleTemp">
+      <li class="card" id="<%= objectId %>">
+        <form id="updateCoffee">
+          <div class="card-header">
+            <input type="text" value="<%= city %>" id="update_city" />
+            <input type="text" value="<%= country %>" id="update_country" />
+          </div>
+          <div class="button-group">
+            <label>
+              <input type="radio" name="rating" value="1" <% if (rating == "1") { %>checked<% } %>>
+              <span class="button-group-item">1</span>
+            </label>
+            <label>
+              <input type="radio" name="rating" value="2" <% if (rating == "2") { %>checked<% } %>>
+              <span class="button-group-item">2</span>
+            </label>
+            <label>
+              <input type="radio" name="rating" value="3" <% if (rating == "3") { %>checked<% } %>>
+              <span class="button-group-item">3</span>
+            </label>
+            <label>
+              <input type="radio" name="rating" value="4" <% if (rating == "4") { %>checked<% } %>>
+              <span class="button-group-item">4</span>
+            </label>
+            <label>
+              <input type="radio" name="rating" value="5" <% if (rating == "5") { %>checked<% } %>>
+              <span class="button-group-item">5</span>
+            </label>
+          </div>
+          <div class="card-stats">
+            <button>Update Post</button>
+            <button id="delete">Delete</button>
+          </div>
+        </form>
+      </li>
+    </script>
+
+
+
+    <!-- build:js scripts/vendor.js -->
+    <!-- bower:js -->
+    <script src="../bower_components/jquery/dist/jquery.js"></script>
+    <script src="../bower_components/underscore/underscore.js"></script>
+    <!-- endbower -->
+    <!-- endbuild -->
+
+    <script src="//www.parsecdn.com/js/parse-1.3.1.min.js"></script>
+
+    <script type="text/javascript">
+      window.App = {};
+      App.Models = {};
+      App.Collections = {};
+      App.Views = {};
+      App.Routers = {};
+    </script>
+
+    <!-- build:js scripts/main.js -->
+    <script src="scripts/models/coffee_model.js"></script>
+    <script src="scripts/collections/trip_collection.js"></script>
+    <script src="scripts/views/add_coffee_view.js"></script>
+    <script src="scripts/views/list_coffee_view.js"></script>
+    <script src="scripts/views/single_coffee_view.js"></script>
+    <script src="scripts/routes/app_router.js"></script>
+    <script src="scripts/main.js"></script>
+    <!-- endbuild -->
+  </body>
+  </html>
