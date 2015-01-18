@@ -9,15 +9,15 @@
     },
 
     routes: {
-      '' : 'home',
-      //'home':'home',
+      'about' : 'about',
+      '':'allList',
       'edit/:coffeeID' : 'editCoffee',
       'big/:coffeeID' :'bigCoffee',
       'add' : 'addCoffee',
       'sort/:sortby' : 'allList'
     },
 
-    home: function (sortby) {
+    about: function () {
       new App.Views.HomeView();
 
     },

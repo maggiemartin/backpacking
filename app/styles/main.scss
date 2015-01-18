@@ -1,10 +1,19 @@
  // Bourbon & Neat
 @import '../../bower_components/bourbon/dist/bourbon';
 @import '../../bower_components/neat/app/assets/stylesheets/neat';
+@import url(http://weloveiconfonts.com/api/?family=entypo);
 $light: hsl(0,0,96);
 $heavy: #434D4E;
 $oswald: 'Oswald', sans-serif;
 // Custom Styles
+
+/* entypo */
+[class*="entypo-"]:before {
+  font-family: 'entypo', sans-serif;
+  padding: 0px;
+  text-decoration: none;
+}
+
 body {
   background: #fafafa;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -52,6 +61,13 @@ h1{
   background-image: url("http://i.imgur.com/h3HKOWt.jpg");
   height: 120px;
 }
+.addBtn{
+  font-size: 15px;
+  color: $heavy;
+  padding: 2px;
+  text-decoration: none;
+
+}
 .sorts{
   font-size: 15px;
   margin-top: 50px;
@@ -61,6 +77,10 @@ h1{
   line-height: 25px;
   margin-left: 20px;
   margin-bottom: 50px;
+  a{
+    color: $heavy;
+    font-weight: 300;
+  }
 }
 h2{
   margin-left: 10px;
@@ -197,7 +217,7 @@ text-shadow: 0 0 10px black ;
 .sorts{
   width: 70%;
   margin-left: 60px;
-  
+
 }
 .title{
   color: white;
