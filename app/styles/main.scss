@@ -68,6 +68,14 @@ h1{
   text-decoration: none;
 
 }
+a{
+  color: $heavy;
+}
+a:visited{
+  color: black;
+
+
+}
 .sorts{
   font-size: 15px;
   margin-top: 50px;
@@ -272,9 +280,19 @@ text-shadow: 0 0 10px black ;
 
 ////////alternate list design
 .allCoffees{
-  li{
+
+  margin-left: 20px;
+  margin-bottom: 50px;
+
+
+    li{
   color: $heavy;
+
+  list-style-type: none;
   text-decoration: underline;
+  margin-top: 5px;
+  font-size: 16px;
+
   //display: inline-block;
 
 }
