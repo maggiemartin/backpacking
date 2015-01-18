@@ -2,7 +2,6 @@ console.log('The Iron Yard Rocks');
 
 Parse.initialize("I16kkJEVSPkyioINGIffaWkvxfrpj0f7wtPkmltb", "kk9FtdAmGJNTIKkIfnQ3gMUAdBJYjRDDc6YVdcQu");
 
-
 (function () {
 
   // Create Instance of Collection
@@ -17,17 +16,28 @@ Parse.initialize("I16kkJEVSPkyioINGIffaWkvxfrpj0f7wtPkmltb", "kk9FtdAmGJNTIKkIfn
 
 
 }());
+var country;
+var collection = App.coffees.models;
 
-$(document).ready( function() {
+$('#filter').on('change', function (event){
+  event.preventDefault();
+  country = $('#filter').val();
 
-  
-  //   $(this).find('#title').fadeIn(300);
-  // }, function() {
-  //   $(this).find('#title').fadeOut(100);
+  var results = _.filter(collection, function(x){ return x.attributes.country === country; });
+   console.log(results);
 
-  //  $('#elementA').hover(function(){
-  //    $('#elementB').addClass('active');
-  //  },function(){
-  //    $('#elementB').removeClass('active');
-  //  });
+   $('#searchList').empty();
+   $('.footer').addClass('lower');
+   $('#coffeeList').empty();
+
+   var newresults = _.each(results, function (x){
+    $('#searchList').append("<li class='filter_results'>" + "<a href='"+ '#/big/' + x.id +"' >"  + "<img src='" + x.attributes.picture._url + "'/>"+ "<h3 class='subtitle'>" + x.attributes.city + "</h3>" +   "</a>" + "</li>");
+
+  });
 });
+
+////"<img class='resultpic'
+/// "<img class='pic' src='" + x.attributes.picture + "'/>"
+
+//_.filter(collection, function(x){ return x.attributes.city === nice; });
+//// map code

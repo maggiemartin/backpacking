@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html class="no-js">
 <head>
@@ -8,29 +9,64 @@
   <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 
   <link rel="stylesheet" href="styles/vendor.css">
-
+  <link href='http://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css'>
   <link rel="stylesheet" href="styles/main.css">
 
   <script src="scripts/vendor/modernizr.js"></script>
 </head>
 <body>
-
-  <div class="hero-unit">
+  <div class="head"><h1>Where I've Been.</h1>
     <a href="#/add" class="addBtn"><button>Add</button></a>
+    <a href="#/home"><button>HOME</button></a>
+    <div id="addList"></div>
+</div>
 
-  <a href="#"> <h1> Travels</h1> </a>
+  <div class="body-container">
+
+  <!--<div class="header">
+    <!--<img src="http://i.imgur.com/SBPlomP.jpg" class="mypic">
+  </div>-->
+
     <div class="sorts">
-      <a href="#/">Rating</a> &bull;
-      <a href="#/sort/name">City</a> &bull;
-      <a href="#/sort/brand">Location</a>
+
+          Select Country:
+
+          <select name="mydropdown" id="filter">
+            <option value="">Choose Country</option>
+            <option value="Peru">Peru</option>
+            <option value="Thailand">Thailand</option>
+            <option value="Laos">Laos</option>
+          </select>
+
+      | or View by :
+      <a href="#/sort/rating">Price</a> &bull;
+      <a href="#/sort/city">City A-Z</a> &bull;
+      <a href="#/sort/country">Country A-Z</a>&bull;
     </div>
-    <div id="tripList"></div>
+
+    <div id="coffeeList"></div>
+
+    <div id="searchList"></div>
+
+
+  </div><!--end of body-container-->
+  <div class="footer">
+    <div class="footerlist">
+     <a href="#">hello</a> this is some text at the bottom. Footer | 2015
+    </div>
   </div>
 
   <script type="text/template" id="addTemp">
     <form id="addCoffee">
-      <input type="text" id="coffee_name" placeholder="City" />
-      <input type="text" id="coffee_brand" placeholder="Country" />
+
+      <input type="text" id="trip_city" placeholder="Trip City" />
+
+      <input type="text" id="trip_country" placeholder="Trip Country" />
+      <input type="file" id="profilePhotoFileUpload" />
+    <hr>
+    <input type="text" id="trip_content" placeholder="Info" />
+    <input type="text" id="trip_cost" placeholder="Cost" />
+
       <button>Add Coffee</button>
     </form>
     <hr />
@@ -38,21 +74,30 @@
 
   <script type="text/template" id="listTemp">
     <li class="card" id="<%= objectId %>">
-      <a href="#/edit/<%= objectId %>">
-        <div class="card-header"><%= name %> , <%= brand %></div>
+      <a href="#/big/<%= objectId %>">
+
+        <%= city %> ,<%= country %>
+
+          <!--<h2 class="title"><%= city %> , <%= country %></h2>-->
+      <!-- <img class="pic" src="  <%= picture.url %>">-->
+
+    </a>
+  </li>
+
+      <!-- </a>-->
+         <!---
         <% if(rating !== '') { %>
           <div class="card-stats"><%= rating %> Star Rating</div>
-          <% } %>
-        </a>
-      </li>
+          <% } %> -->
+
     </script>
 
     <script type="text/template" id="singleTemp">
       <li class="card" id="<%= objectId %>">
         <form id="updateCoffee">
           <div class="card-header">
-            <input type="text" value="<%= name %>" id="update_name" />
-            <input type="text" value="<%= brand %>" id="update_brand" />
+            <input type="text" value="<%= city %>" id="update_city" />
+            <input type="text" value="<%= country %>" id="update_country" />
           </div>
           <div class="button-group">
             <label>
@@ -77,13 +122,28 @@
             </label>
           </div>
           <div class="card-stats">
-            <button>Update Trip</button>
+            <button>Update Post</button>
             <button id="delete">Delete</button>
           </div>
         </form>
       </li>
     </script>
 
+    <script type="text/template" id="bigTemp">
+      <li class="bigPic" id="<%= objectId %>">
+
+
+        <div class="bigHeadline"> <%= city %> , <%= country %> </div>
+          <img class="bigpic" src="  <%= picture.url %>">
+          </div>
+
+      </li>
+    </script>
+
+    <script type="text/template" id="homeTemp">
+    <h1>A visual look at all of my backpacking trips. All pictures taken by me
+  (except for the ones I am in..) </h1>
+  </script>
 
 
     <script src="scripts/vendor.js"></script>

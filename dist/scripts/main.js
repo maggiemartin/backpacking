@@ -1,17 +1,19 @@
+
 (function () {
 
-  App.Models.Trip = Parse.Object.extend({
+  App.Models.Coffee = Parse.Object.extend({
 
     className: 'Coffee',
 
     idAttribute: 'objectId',
 
     defaults: {
-      name: '',
-      brand: '',
-      comments: '',
       rating: '',
-      testing: true
+      city: '',
+      country: '',
+      testing: true,
+      content: '',
+      cost: ''
     },
 
     initialize: function () {
@@ -25,7 +27,7 @@
 
 (function () {
 
-  App.Collections.Trips = Parse.Collection.extend({
+  App.Collections.Coffees = Parse.Collection.extend({
     model: App.Models.Coffee,
     comparator: function (model) {
       return -parseInt(model.get('rating'));
@@ -36,7 +38,7 @@
 
 (function () {
 
-  App.Views.AddTrip = Parse.View.extend({
+  App.Views.AddCoffee = Parse.View.extend({
 
     events: {
       'submit #addCoffee' : 'addCoffee'
@@ -44,8 +46,8 @@
 
     initialize: function () {
       this.render();
-
-      $('#tripList').html(this.$el);
+      $('#searchList').empty();
+      $('#coffeeList').html(this.$el);
     },
 
     render: function () {
@@ -55,14 +57,26 @@
     addCoffee: function (e) {
       e.preventDefault();
 
-      var c = new App.Models.Trip({
-        name: $('#coffee_name').val(),
-        brand: $('#coffee_brand').val()
+      var fileUploadControl = $("#profilePhotoFileUpload")[0];
+      if (fileUploadControl.files.length > 0) {
+        var file = fileUploadControl.files[0];
+        var name = "photo.jpg";
+
+        var parseFile = new Parse.File(name, file);
+      }
+      parseFile.save()
+
+      var c = new App.Models.Coffee({
+        city: $('#trip_city').val(),
+        country: $('#trip_country').val(),
+        picture: parseFile,
+        content: $('#trip_city').val(),
+        cost: $('#trip_cost').val()
       });
 
       c.save(null, {
         success: function () {
-          App.trips.add(c);
+          App.coffees.add(c);
           App.router.navigate('', { trigger: true });
         }
       });
@@ -73,9 +87,10 @@
 
 }());
 
+
 (function () {
 
-  App.Views.ListTrips = Parse.View.extend({
+  App.Views.ListCoffee = Parse.View.extend({
 
     tagName: 'ul',
     className: 'allCoffees',
@@ -94,7 +109,8 @@
       this.collection.on('sync', this.render, this);
 
       // Get our Element On Our Page
-      $('#tripList').html(this.$el);
+      $('#coffeeList').html(this.$el);
+      collection = App.coffees.models;
 
 
 
@@ -105,6 +121,8 @@
 
       // Empty out
       this.$el.empty();
+      $('#searchList').empty();
+      $('.footer').removeClass('lower');
 
       // Sorting On The Fly
       if (this.options.sort != undefined) {
@@ -132,20 +150,23 @@
       return this;
     }
 
+
+
+
   });
 
 }());
 
 (function () {
 
-  App.Views.SingleTrip = Parse.View.extend({
+  App.Views.SingleCoffee = Parse.View.extend({
 
     tagName: 'ul',
     className: 'coffeeSingle',
 
     events: {
-      'submit #updateTrip' : 'updateTrip',
-      'click #delete' : 'deleteTrip'
+      'submit #updateCoffee' : 'updateCoffee',
+      'click #delete' : 'deleteCoffee'
     },
 
     template: _.template($('#singleTemp').html()),
@@ -157,7 +178,7 @@
       $('#coffeeForm').empty();
 
       // Get our Element On Our Page
-      $('#tripList').html(this.$el);
+      $('#coffeeList').html(this.$el);
     },
 
     render: function () {
@@ -168,25 +189,25 @@
 
     },
 
-    updateTrip: function (e) {
+    updateCoffee: function (e) {
       e.preventDefault();
 
       // Update our Model Instance
-      this.options.trip.set({
-        name: $('#update_name').val(),
-        brand: $('#update_brand').val(),
+      this.options.coffee.set({
+        city: $('#update_city').val(),
+        country: $('#update_country').val(),
         rating: $('input[name="rating"]:checked').val()
       });
 
       // Save Instance
-      this.options.trip.save();
+      this.options.coffee.save();
 
-      //T - Check on promise
+      // TODO - Check on promise
       App.router.navigate('', {trigger: true});
 
     },
 
-    deleteTrip: function (e) {
+    deleteCoffee: function (e) {
       e.preventDefault();
 
       // Remove Coffee
@@ -203,6 +224,73 @@
 
 (function () {
 
+  App.Views.BigCoffee = Parse.View.extend({
+
+    tagName: 'ul',
+    className: 'coffeeSingle',
+
+    events: {
+
+    },
+
+    template: _.template($('#bigTemp').html()),
+
+    initialize: function (options) {
+      this.options = options;
+      this.render();
+
+      $('#coffeeForm').empty();
+
+      // Get our Element On Our Page
+      $('#coffeeList').html(this.$el);
+    },
+
+    render: function () {
+
+      this.$el.empty();
+
+
+
+      this.$el.html(this.template(this.options.coffee.toJSON()));
+
+    }
+
+
+
+  });
+
+}());
+
+(function () {
+
+  App.Views.HomeView = Parse.View.extend({
+
+    events: {},
+
+
+    initialize: function () {
+      this.render();
+
+      $('#coffeeList').html(this.$el);
+    },
+
+    render: function () {
+      this.$el.empty();
+      $('#searchList').empty();
+      $('#coffeeList').empty();
+      $('.footer').removeClass('lower');
+      this.$el.html($('#homeTemp').html());
+    },
+
+
+
+  });
+
+}());
+
+
+(function () {
+
   App.Routers.AppRouter = Parse.Router.extend({
 
     initialize: function () {
@@ -212,19 +300,29 @@
 
     routes: {
       '' : 'home',
+      //'home':'home',
       'edit/:coffeeID' : 'editCoffee',
+      'big/:coffeeID' :'bigCoffee',
       'add' : 'addCoffee',
-      'sort/:sortby' : 'home'
+      'sort/:sortby' : 'allList'
     },
 
     home: function (sortby) {
-      new App.Views.ListCoffee({ collection: App.trips, showTwitter: false, sort: sortby });
+      new App.Views.HomeView();
+
+    },
+    allList: function (sortby){
+      new App.Views.ListCoffee({ collection: App.coffees, showTwitter: false, sort: sortby });
     },
 
+    bigCoffee: function (coffeeID) {
+      var c = App.coffees.get(coffeeID);
+      new App.Views.BigCoffee({ coffee: c });
+    },
     editCoffee: function (coffeeID) {
 
-      var c = App.trips.get(coffeeID);
-      new App.Views.SingleCoffee({ trip: c });
+      var c = App.coffees.get(coffeeID);
+      new App.Views.SingleCoffee({ coffee: c });
     },
 
     addCoffee: function () {
@@ -239,16 +337,15 @@
 
 console.log('The Iron Yard Rocks');
 
-// Parse.initialize("hjvre0d6NncFPdITirawPg3CgauMhiUDdBnfPy92", "SjMOm2L5dTAyDj2WUx7XWZloPBxCsBs3uCoJpBrJ");
 Parse.initialize("I16kkJEVSPkyioINGIffaWkvxfrpj0f7wtPkmltb", "kk9FtdAmGJNTIKkIfnQ3gMUAdBJYjRDDc6YVdcQu");
 
 (function () {
 
   // Create Instance of Collection
-  App.coffees = new App.Collections.Trips();
+  App.coffees = new App.Collections.Coffees();
 
   // Fetch any server-side coffees
-  App.trips.fetch().done( function () {
+  App.coffees.fetch().done( function () {
 
     App.router = new App.Routers.AppRouter();
 
@@ -256,3 +353,28 @@ Parse.initialize("I16kkJEVSPkyioINGIffaWkvxfrpj0f7wtPkmltb", "kk9FtdAmGJNTIKkIfn
 
 
 }());
+var country;
+var collection = App.coffees.models;
+
+$('#filter').on('change', function (event){
+  event.preventDefault();
+  country = $('#filter').val();
+
+  var results = _.filter(collection, function(x){ return x.attributes.country === country; });
+   console.log(results);
+
+   $('#searchList').empty();
+   $('.footer').addClass('lower');
+   $('#coffeeList').empty();
+
+   var newresults = _.each(results, function (x){
+    $('#searchList').append("<li class='filter_results'>" + "<a href='"+ '#/big/' + x.id +"' >"  + "<img src='" + x.attributes.picture._url + "'/>"+ "<h3 class='subtitle'>" + x.attributes.city + "</h3>" +   "</a>" + "</li>");
+
+  });
+});
+
+////"<img class='resultpic'
+/// "<img class='pic' src='" + x.attributes.picture + "'/>"
+
+//_.filter(collection, function(x){ return x.attributes.city === nice; });
+//// map code

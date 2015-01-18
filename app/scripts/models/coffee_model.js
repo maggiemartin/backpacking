@@ -11,7 +11,9 @@
       rating: '',
       city: '',
       country: '',
-      testing: true
+      testing: true,
+      content: '',
+      cost: ''
     },
 
     initialize: function () {

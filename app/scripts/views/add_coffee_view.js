@@ -8,7 +8,7 @@
 
     initialize: function () {
       this.render();
-
+      $('#searchList').empty();
       $('#coffeeList').html(this.$el);
     },
 
@@ -32,6 +32,8 @@
         city: $('#trip_city').val(),
         country: $('#trip_country').val(),
         picture: parseFile,
+        content: $('#trip_city').val(),
+        cost: $('#trip_cost').val()
       });
 
       c.save(null, {

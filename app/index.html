@@ -13,7 +13,7 @@
   <link rel="stylesheet" href="../bower_components/normalize-css/normalize.css" />
   <!-- endbower -->
   <!-- endbuild -->
-
+  <link href='http://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css'>
   <!-- build:css styles/main.css -->
   <link rel="stylesheet" href="styles/main.css">
   <!-- endbuild -->
@@ -23,33 +23,57 @@
   <!-- endbuild -->
 </head>
 <body>
+  <div class="head"><h1>Where I've Been.</h1>
+    <a href="#/add" class="addBtn"><button>Add</button></a>
+    <a href="#/home"><button>HOME</button></a>
+    <div id="addList"></div>
+</div>
 
   <div class="body-container">
- <a href="#/add" class="addBtn"><button>Add</button></a> 
-    <div class="header">
-        <h1>Trips</h1>
 
-        <div class="sorts">
-          <a href="#/">Rating</a> &bull;
-          <a href="#/sort/city">City</a> &bull;
-          <a href="#/sort/country">Country</a>
+  <!--<div class="header">
+    <!--<img src="http://i.imgur.com/SBPlomP.jpg" class="mypic">
+  </div>-->
 
+    <div class="sorts">
 
-    </div><!--end of header-->
+          Select Country:
 
+          <select name="mydropdown" id="filter">
+            <option value="">Choose Country</option>
+            <option value="Peru">Peru</option>
+            <option value="Thailand">Thailand</option>
+            <option value="Laos">Laos</option>
+          </select>
 
+      | or View by :
+      <a href="#/sort/rating">Price</a> &bull;
+      <a href="#/sort/city">City A-Z</a> &bull;
+      <a href="#/sort/country">Country A-Z</a>&bull;
     </div>
+
     <div id="coffeeList"></div>
-    <div id="picList"></div>
+
+    <div id="searchList"></div>
+
+
   </div><!--end of body-container-->
+  <div class="footer">
+    <div class="footerlist">
+     <a href="#">hello</a> this is some text at the bottom. Footer | 2015
+    </div>
+  </div>
 
   <script type="text/template" id="addTemp">
     <form id="addCoffee">
 
       <input type="text" id="trip_city" placeholder="Trip City" />
+
       <input type="text" id="trip_country" placeholder="Trip Country" />
       <input type="file" id="profilePhotoFileUpload" />
-
+    <hr>
+    <input type="text" id="trip_content" placeholder="Info" />
+    <input type="text" id="trip_cost" placeholder="Cost" />
 
       <button>Add Coffee</button>
     </form>
@@ -58,13 +82,15 @@
 
   <script type="text/template" id="listTemp">
     <li class="card" id="<%= objectId %>">
-      <a href="#/edit/<%= objectId %>">
+      <a href="#/big/<%= objectId %>">
 
+        <%= city %> ,<%= country %>
 
+          <!--<h2 class="title"><%= city %> , <%= country %></h2>-->
+      <!-- <img class="pic" src="  <%= picture.url %>">-->
 
-          <h2 class="title"><%= city %> , <%= country %></h2>
-       <img class="pic" src="  <%= picture.url %>">
-
+    </a>
+  </li>
 
       <!-- </a>-->
          <!---
@@ -111,6 +137,21 @@
       </li>
     </script>
 
+    <script type="text/template" id="bigTemp">
+      <li class="bigPic" id="<%= objectId %>">
+
+
+        <div class="bigHeadline"> <%= city %> , <%= country %> </div>
+          <img class="bigpic" src="  <%= picture.url %>">
+          </div>
+
+      </li>
+    </script>
+
+    <script type="text/template" id="homeTemp">
+    <h1>A visual look at all of my backpacking trips. All pictures taken by me
+  (except for the ones I am in..) </h1>
+  </script>
 
 
     <!-- build:js scripts/vendor.js -->
@@ -136,6 +177,8 @@
     <script src="scripts/views/add_coffee_view.js"></script>
     <script src="scripts/views/list_coffee_view.js"></script>
     <script src="scripts/views/single_coffee_view.js"></script>
+    <script src="scripts/views/big_picture_view.js"></script>
+    <script src="scripts/views/home_view.js"></script>
     <script src="scripts/routes/app_router.js"></script>
     <script src="scripts/main.js"></script>
     <!-- endbuild -->

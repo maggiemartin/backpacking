@@ -21,6 +21,7 @@
 
       // Get our Element On Our Page
       $('#coffeeList').html(this.$el);
+      collection = App.coffees.models;
 
 
 
@@ -31,6 +32,8 @@
 
       // Empty out
       this.$el.empty();
+      $('#searchList').empty();
+      $('.footer').removeClass('lower');
 
       // Sorting On The Fly
       if (this.options.sort != undefined) {
@@ -57,6 +60,9 @@
       }
       return this;
     }
+
+
+
 
   });
 

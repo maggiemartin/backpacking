@@ -10,15 +10,25 @@
 
     routes: {
       '' : 'home',
+      //'home':'home',
       'edit/:coffeeID' : 'editCoffee',
+      'big/:coffeeID' :'bigCoffee',
       'add' : 'addCoffee',
-      'sort/:sortby' : 'home'
+      'sort/:sortby' : 'allList'
     },
 
     home: function (sortby) {
+      new App.Views.HomeView();
+
+    },
+    allList: function (sortby){
       new App.Views.ListCoffee({ collection: App.coffees, showTwitter: false, sort: sortby });
     },
 
+    bigCoffee: function (coffeeID) {
+      var c = App.coffees.get(coffeeID);
+      new App.Views.BigCoffee({ coffee: c });
+    },
     editCoffee: function (coffeeID) {
 
       var c = App.coffees.get(coffeeID);
