@@ -70,7 +70,7 @@
         city: $('#trip_city').val(),
         country: $('#trip_country').val(),
         picture: parseFile,
-        content: $('#trip_city').val(),
+        content: $('#trip_content').val(),
         cost: $('#trip_cost').val()
       });
 
