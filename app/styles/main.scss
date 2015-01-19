@@ -78,17 +78,24 @@ a:visited{
 }
 .sorts{
   font-size: 15px;
-  margin-top: 50px;
+  margin-top: 80px;
   background-color: $light;
   padding: 7px;
   width: 80%;
   line-height: 25px;
   margin-left: 20px;
+
   margin-bottom: 50px;
   a{
     color: $heavy;
     font-weight: 300;
   }
+}
+.caption{
+  margin-top: 50px;
+margin-left: 20px;
+  position: absolute;
+  font-size: 17px;
 }
 h2{
   margin-left: 10px;
@@ -101,21 +108,54 @@ h2{
 
 }
 
-// .allCoffees{
-//   margin-left: -27px;
-//   list-style-type:none;
-//   li{
-//     height: 280px;
-//     width: 370px;
-//     margin-top: 50px;
-//     display: inline-block;
-//
-//     transition: 0.2s all ease;
-// }
-// li:hover{
-//   opacity: 1;
-// }
-// }
+#addCoffee{
+border: 2px solid gray;
+max-width: 600px;
+  margin: 5px;
+  padding: 20px;
+  h1{
+    margin-left: 0px;
+    font-weight: 400;
+    background-color: $light;
+    width: 100%;
+    text-align: center;
+    border: 1px solid $heavy;
+    padding: 5px;
+  }
+  input, textarea, button{
+    padding: 7px;
+    display: block;
+    width: 100%;
+    font-size: 16px;
+    border: 1px solid $heavy;
+    color: $heavy;
+    background-color: $light;
+    margin-top: 20px;
+    border-radius: 2px;
+  }
+  #trip_city, #trip_country{
+    margin-top: 20px;
+    width: 250px;
+    float: left;
+    margin-right: 20px;
+  }
+  #profilePhotoFileUpload{
+    padding-top: 30px;
+    border: none;
+    background-color: white;
+
+  }
+  #adder{
+    width: 50%;
+    text-align: center;
+    margin-left: 25%;
+    margin-top: 20px;
+    background-color: $heavy;
+    color: white;
+
+  }
+
+}
 
 .title{
   color: white;
@@ -183,6 +223,10 @@ text-shadow: 0 0 10px black ;
 }
 
 @media all and (min-width: 30em) {
+  #addCoffee{
+    margin-left: 20px;
+
+  }
   .head h1{
     font-size: 50px;
     margin-left: 100px;
@@ -218,6 +262,9 @@ text-shadow: 0 0 10px black ;
   width: 100%;
 
 }
+#addCoffee{
+  margin-left: 60px;
+}
 .head h1{
   font-size: 70px;
   width: 600px;
@@ -226,6 +273,9 @@ text-shadow: 0 0 10px black ;
   width: 70%;
   margin-left: 60px;
 
+}
+.caption{
+  margin-left: 60px;
 }
 .title{
   color: white;
@@ -459,6 +509,7 @@ text-shadow: 0 0 10px black ;
   .resultpic{
 
   }
+
   .filter_results{
     width: 20%;
     margin-right: 50px;
