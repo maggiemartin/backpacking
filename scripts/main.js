@@ -41,7 +41,7 @@
   App.Views.AddCoffee = Parse.View.extend({
 
     events: {
-      'submit #addCoffee' : 'addCoffee'
+      'click #adder' : 'addCoffee'
     },
 
     initialize: function () {
